@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get("clear_cache",[App\Http\Controllers\AdministrationController::class,"clear_cache"]);
+
 Route::get('/', function () {
-    return view('welcome');
+    return "Okul Yönetim Servisi";
 });

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| API Route
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
@@ -19,5 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource("users",App\Http\Controllers\UserController::class)->only("index");
-Route::resource("lessons",App\Http\Controllers\LessonController::class)->only("index");
+Route::get("dashboard",[App\Http\Controllers\DashboardController::class,"index"]);
+Route::resource("users",App\Http\Controllers\UserController::class)->only(["index","show"]);
+Route::resource("lessons",App\Http\Controllers\LessonController::class)->only(["index","show"]);
+Route::get("lessons/{lesson}/students",[App\Http\Controllers\LessonController::class,"getStudents"]);

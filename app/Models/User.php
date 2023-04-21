@@ -38,25 +38,61 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ["idAndFullName","fullname", "typeText"];
+
     const TYPES = [
         "teacher" => 1,
         "student" => 2,
         "guest" => 3
     ];
 
-    public function teacherLessons(){
-        return $this->belongsToMany(User::class,"lesson_teacher","teacher_id","lesson_id")->withTimestamps();
+    public function teacherLessons()
+    {
+        return $this->belongsToMany(User::class, "lesson_teacher", "teacher_id", "lesson_id")->withTimestamps();
     }
 
-    public function studentLessons(){
-        return $this->belongsToMany(User::class,"lesson_student","student_id","lesson_id")->withTimestamps();
+    public function studentLessons()
+    {
+        return $this->belongsToMany(User::class, "lesson_student", "student_id", "lesson_id")->withTimestamps();
     }
 
-    public function scopeTeachers($query){
-        return $query->where("type",self::TYPES["teacher"]);
+    public function scopeTeachers($query)
+    {
+        return $query->where("type", self::TYPES["teacher"]);
     }
 
-    public function scopeStudents($query){
-        return $query->where("type",self::TYPES["student"]);
+    public function scopeStudents($query)
+    {
+        return $query->where("type", self::TYPES["student"]);
+    }
+
+    public function getidAndFullNameAttribute()
+    {
+        return "{$this->id} - {$this->full_name}";
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->surname}";
+    }
+
+    public function getTypeTextAttribute()
+    {       
+        switch ($this->type) {
+            case self::TYPES["guest"]:
+                $type = "Mısafır";
+                break;
+            case self::TYPES["teacher"]:
+                $type = "Öğretmen";
+                break;
+            case self::TYPES["student"]:
+                $type = "Öğrenci";
+                break;
+
+            default:
+                $type = "Bilinmeyen";
+                break;
+        }
+        return $type;
     }
 }
