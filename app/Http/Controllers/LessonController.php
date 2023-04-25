@@ -18,8 +18,9 @@ class LessonController extends Controller
         $lesson = Lesson::where("id", $id)->orWhere("code", $id)->firstOrFail();
 
         return response()->json([
-            "lessson" => $lesson,
+            "lesson" => $lesson,
             "countStudent" => $lesson->students()->count(),
+            "countMaterial" => $lesson->materials()->count(),
         ]);
     }
 
@@ -30,5 +31,17 @@ class LessonController extends Controller
             "lesson" => $lesson,
             "students" => $lesson->students
         ]);
+    }
+
+    public function getMaterials($id){
+        $lesson = Lesson::where("id", $id)->orWhere("code", $id)->firstOrFail();
+        return response()->json([
+            "lesson" => $lesson,
+            "materials" => $lesson->materials
+        ]);
+    }
+
+    public function getHomeworks($id){
+        return response()->json([]);
     }
 }

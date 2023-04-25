@@ -19,13 +19,14 @@ class MaterialsSeeder extends Seeder
 
         $materials = [];
 
-        for ($i = 0; $i < rand(4, 8); $i++) {
+        for ($i = 0; $i < rand(10, 18); $i++) {
             $materials[] = [
                 "lesson_id" => rand(1, Lesson::count() - 1),
-                "name" => "Ödev " . $i + 1,
+                "name" => "Material " . $i + 1,
                 "week" => rand(1, 14),
                 "material_type" => array_rand(Material::TYPES),
-                "link" => fake()->url()
+                "link" => fake()->url(),
+                "description" =>fake()->paragraphs(rand(1,3),true)
             ];
         }
 

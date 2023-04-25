@@ -11,6 +11,8 @@ class Material extends Model
 
     protected $guarded = [];
 
+    protected $appends = ["material_type_text"];
+
     const TYPES = [
         "Ders Kitabı",
         "Haftalık Ders Notu",
@@ -20,4 +22,14 @@ class Material extends Model
         "Makale",
         "Diğer"
     ];
+
+    public function getMaterialTypeTextAttribute()
+    {
+        return self::TYPES[$this->material_type] ?? "";
+    }
+
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
+    }
 }

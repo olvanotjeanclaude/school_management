@@ -19,7 +19,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("dashboard",[App\Http\Controllers\DashboardController::class,"index"]);
-Route::resource("users",App\Http\Controllers\UserController::class)->only(["index","show"]);
-Route::resource("lessons",App\Http\Controllers\LessonController::class)->only(["index","show"]);
-Route::get("lessons/{lesson}/students",[App\Http\Controllers\LessonController::class,"getStudents"]);
+Route::get("dashboard", [App\Http\Controllers\DashboardController::class, "index"]);
+Route::resource("users", App\Http\Controllers\UserController::class)->only(["index", "show"]);
+
+Route::resource("lessons", App\Http\Controllers\LessonController::class)->only(["index", "show"]);
+Route::get("lessons/{lesson}/students", [App\Http\Controllers\LessonController::class, "getStudents"]);
+Route::get("lessons/{lesson}/materials", [App\Http\Controllers\LessonController::class, "getMaterials"]);
+Route::get("lessons/{lesson}/homeworks", [App\Http\Controllers\LessonController::class, "getHomeworks"]);
+
+Route::resource("materials", App\Http\Controllers\MaterialController::class)->only("show");

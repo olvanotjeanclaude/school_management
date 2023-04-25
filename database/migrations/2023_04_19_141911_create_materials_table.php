@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer("week");
             $table->string("file")->nullable();
             $table->string("link")->nullable();
+            $table->text("description")->nullable();
             $table->timestamps();
         });
     }
